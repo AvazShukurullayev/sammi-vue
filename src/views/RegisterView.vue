@@ -1,12 +1,14 @@
 <template>
-  <div class="register">
-    <h2>Register page</h2>
+  <div class="register-view">
+    <Register />
   </div>
 </template>
 
 <script>
+import { Register } from "@/components";
 export default {
   name: "RegisterView",
+  components: { Register },
 };
 </script>
 
