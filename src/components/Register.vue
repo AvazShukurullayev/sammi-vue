@@ -1,6 +1,6 @@
 <template>
   <main class="form-signin text-center w-25 m-auto mt-5">
-    <form @submit.prevent>
+    <form>
       <h2>
         <code class="text-dark rounded border fs-3 p-2 shadow">Sammi</code>
       </h2>
@@ -11,6 +11,7 @@
         :inputId="'floatingName'"
         :placeholder="'John'"
         :label="'Name'"
+        required
       />
       <Input
         class="my-3"
@@ -18,6 +19,7 @@
         :inputId="'floatingInput'"
         :placeholder="'name@example.com'"
         :label="'Email address'"
+        required
       />
       <Input
         class="my-3"
@@ -25,9 +27,12 @@
         :inputId="'floatingPassword'"
         :placeholder="'Password'"
         :label="'Password'"
+        required
       />
 
-      <Button type="submit">Register</Button>
+      <Button type="submit" :disabled="isLoading" @click="submitHandler"
+        >Register</Button
+      >
     </form>
   </main>
 </template>
@@ -35,6 +40,22 @@
 <script>
 export default {
   name: "Register",
+  props: {},
+  components: {},
+  data() {
+    return {};
+  },
+  computed: {
+    isLoading() {
+      return this.$store.state.auth.isLoading;
+    },
+  },
+  methods: {
+    submitHandler(e) {
+      e.preventDefault();
+      this.$store.commit("setLoading");
+    },
+  },
 };
 </script>
 
