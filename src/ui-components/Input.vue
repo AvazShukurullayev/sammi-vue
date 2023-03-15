@@ -5,6 +5,8 @@
       :type="type"
       :id="inputId"
       :placeholder="placeholder"
+      @input="updateInput"
+      :value="modelValue"
     />
     <label :for="inputId">{{ label }}</label>
   </div>
@@ -14,10 +16,16 @@
 export default {
   name: "Input",
   props: {
-      type: String,
-      inputId: String,
-      placeholder: String,
-      label: String,
+    type: String,
+    inputId: String,
+    placeholder: String,
+    label: String,
+    modelValue: [String, Number],
+  },
+  methods: {
+    updateInput(e) {
+      this.$emit("update:modelValue", e.target.value);
+    },
   },
 };
 </script>

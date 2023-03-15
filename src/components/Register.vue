@@ -11,6 +11,7 @@
         :inputId="'floatingName'"
         :placeholder="'John'"
         :label="'Name'"
+        v-model="username"
         required
       />
       <Input
@@ -19,6 +20,7 @@
         :inputId="'floatingInput'"
         :placeholder="'name@example.com'"
         :label="'Email address'"
+        v-model="email"
         required
       />
       <Input
@@ -27,12 +29,13 @@
         :inputId="'floatingPassword'"
         :placeholder="'Password'"
         :label="'Password'"
+        v-model="password"
         required
       />
 
-      <Button type="submit" :disabled="isLoading" @click="submitHandler"
-        >Register</Button
-      >
+      <Button type="submit" :disabled="isLoading" @click="submitHandler">
+        Register
+      </Button>
     </form>
   </main>
 </template>
@@ -43,7 +46,11 @@ export default {
   props: {},
   components: {},
   data() {
-    return {};
+    return {
+      username: "",
+      email: "",
+      password: "",
+    };
   },
   computed: {
     isLoading() {
@@ -53,7 +60,18 @@ export default {
   methods: {
     submitHandler(e) {
       e.preventDefault();
-      this.$store.commit("setLoading");
+      const data = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      };
+      this.$store
+        .dispatch("register", data)
+        .then((user) => {
+          console.log("USER Register.vue", user);
+          this.$router.push({ name: "home" });
+        })
+        .catch((err) => console.log("Error Register.vue", err));
     },
   },
 };
