@@ -6,7 +6,10 @@
       </h2>
       <h1 class="h3 my-4 fw-normal">Registration</h1>
 
-      <ValidationError :validationErrors="validationErrors" />
+      <ValidationError
+        v-if="validationErrors"
+        :validationErrors="validationErrors"
+      />
       <Input
         :type="'text'"
         :inputId="'floatingName'"
@@ -42,6 +45,9 @@
 </template>
 
 <script>
+// import {mapState} from "vuex"
+import { mapState } from "vuex";
+
 import ValidationError from "@/components/ValidationError.vue";
 
 export default {
@@ -56,12 +62,16 @@ export default {
     };
   },
   computed: {
-    isLoading() {
-      return this.$store.state.auth.isLoading;
-    },
-    validationErrors() {
-      return this.$store.state.auth.errors;
-    }
+    ...mapState({
+      isLoading: (state) => state.auth.isLoading,
+      validationErrors: (state) => state.auth.errors,
+    }),
+    // isLoading() {
+    //   return this.$store.state.auth.isLoading;
+    // },
+    // validationErrors() {
+    //   return this.$store.state.auth.errors;
+    // },
   },
   methods: {
     submitHandler(e) {
