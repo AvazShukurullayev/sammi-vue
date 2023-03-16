@@ -6,6 +6,7 @@
       </h2>
       <h1 class="h3 my-4 fw-normal">Registration</h1>
 
+      <ValidationError :validationErrors="validationErrors" />
       <Input
         :type="'text'"
         :inputId="'floatingName'"
@@ -41,10 +42,12 @@
 </template>
 
 <script>
+import ValidationError from "@/components/ValidationError.vue";
+
 export default {
   name: "Register",
   props: {},
-  components: {},
+  components: { ValidationError },
   data() {
     return {
       username: "",
@@ -56,6 +59,9 @@ export default {
     isLoading() {
       return this.$store.state.auth.isLoading;
     },
+    validationErrors() {
+      return this.$store.state.auth.errors;
+    }
   },
   methods: {
     submitHandler(e) {
