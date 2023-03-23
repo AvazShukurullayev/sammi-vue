@@ -1,6 +1,8 @@
 import AuthService from "../service/auth";
 import { setItem } from "../helpers/persistanceStorage";
+import { gettersTypes } from "./types";
 
+// ? State
 const state = {
   isLoading: false,
   user: null,
@@ -9,6 +11,23 @@ const state = {
   // isLoggedIn ni null, true, false qiymatlari bo'ladi
 };
 
+// ? Getters
+const getters = {
+  [gettersTypes.currentUser]: (state) => {
+    return state.user;
+  },
+  [gettersTypes.isLoggedIn]: (state) => {
+    return Boolean(state.isLoggedIn);
+  },
+  [gettersTypes.isAnonymous]: (state) => {
+    return state.isLoggedIn === false;
+  },
+  /*  currentUser: (state) => {
+    return state.user;
+  }, */
+};
+
+// ? Mutations
 const mutations = {
   registerStart(state) {
     state.isLoading = true;
@@ -47,6 +66,7 @@ const mutations = {
   },
 };
 
+// ? Actions
 const actions = {
   register(context, user) {
     return new Promise((resolve, reject) => {
@@ -86,4 +106,9 @@ const actions = {
   },
 };
 
-export default { state, mutations, actions };
+export default {
+  state,
+  getters,
+  mutations,
+  actions,
+};

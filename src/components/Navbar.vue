@@ -19,7 +19,7 @@
         </RouterLink>
       </template>
 
-      <template v-if="!isLoggedIn">
+      <template v-if="isAnonymous">
         <RouterLink
           :to="{ name: 'login' }"
           class="me-3 py-2 text-dark text-decoration-none fs-5"
@@ -39,6 +39,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { gettersTypes } from "../modules/types";
 
 export default {
   name: "Navbar",
@@ -52,6 +53,15 @@ export default {
       user: (state) => state.auth.user,
       isLoggedIn: (state) => state.auth.isLoggedIn,
     }),
+    currentUser() {
+      return this.$store.getters[gettersTypes.currentUser];
+    },
+    isLoggedIn() {
+      return this.$store.getters[gettersTypes.isLoggedIn];
+    },
+    isAnonymous() {
+      return this.$store.getters[gettersTypes.isAnonymous];
+    },
   },
   methods: {},
 };
