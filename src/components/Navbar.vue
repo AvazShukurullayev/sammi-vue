@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import { gettersTypes } from "../modules/types";
 
 export default {
@@ -49,11 +50,16 @@ export default {
     return {};
   },
   computed: {
-    ...mapState({
+    /*  ...mapState({
       user: (state) => state.auth.user,
       isLoggedIn: (state) => state.auth.isLoggedIn,
+    }), */
+    ...mapGetters({
+      currentUser: gettersTypes.currentUser,
+      isLoggedIn: gettersTypes.isLoggedIn,
+      isAnonymous: gettersTypes.isAnonymous,
     }),
-    currentUser() {
+   /*  currentUser() {
       return this.$store.getters[gettersTypes.currentUser];
     },
     isLoggedIn() {
@@ -61,7 +67,7 @@ export default {
     },
     isAnonymous() {
       return this.$store.getters[gettersTypes.isAnonymous];
-    },
+    }, */
   },
   methods: {},
 };
